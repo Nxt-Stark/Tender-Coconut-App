@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "782651458004",
+    "project_id": "tender-341bc",
+    "storage_bucket": "tender-341bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782651458004:android:fae0f455ec1c78c6e55641",
+        "android_client_info": {
+          "package_name": "com.example.tender"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoDnzA6_H2vG0FQccI9XkzJCh9mUQJ1Do"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:firebase_core/firebase_core.dart';
+import 'Scheduling.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Ensure bindings are initialized
+  await Firebase.initializeApp(); // Initialize Firebase
   runApp(const MyApp());
 }
 
@@ -1028,7 +1031,8 @@ class _ContactsPageState extends State<ContactsPage> {
     final sanitizedPhoneNumber = phoneNumber.replaceAll(RegExp(r'\s+'), '');
     final Uri phoneUri = Uri(scheme: 'tel', path: sanitizedPhoneNumber);
 
-    if (await Permission.phone.request().isGranted) {
+    final status = await Permission.phone.request();
+    if (status.isGranted) {
       try {
         if (await canLaunchUrl(phoneUri)) {
           await launchUrl(phoneUri);
@@ -1101,7 +1105,13 @@ class SchedulePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SchedulingPage()),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
                           foregroundColor: Colors.white,
@@ -1276,7 +1286,7 @@ class SchedulePage extends StatelessWidget {
                                 fontFamily: 'NunitoSans',
                               ),
                             ),
-                            child: Text('Done ✅'),
+                            child: Text('Done'),
                           ),
                         ],
                       ),
@@ -1405,7 +1415,7 @@ class SchedulePage extends StatelessWidget {
                                 fontFamily: 'NunitoSans',
                               ),
                             ),
-                            child: Text('Done ✅'),
+                            child: Text('Done'),
                           ),
                         ],
                       ),

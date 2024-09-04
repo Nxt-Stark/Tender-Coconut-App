@@ -31,9 +31,6 @@ class _SchedulingPageState extends State<SchedulingPage> {
   }
 
   String _formatTime(TimeOfDay time) {
-    final now = DateTime.now();
-    final dateTime =
-        DateTime(now.year, now.month, now.day, time.hour, time.minute);
     return "${time.format(context)}";
   }
 

@@ -152,6 +152,7 @@ class _SchedulingPageState extends State<SchedulingPage> {
         'mobile': _mobileController.text,
         'date': selectedDate,
         'time': selectedTime.format(context),
+        'status': false, // Add this line to set the default status
       });
 
       Navigator.of(context).pop();

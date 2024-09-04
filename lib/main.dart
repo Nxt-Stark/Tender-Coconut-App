@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'Scheduling.dart';
+import 'buy.dart';
+import 'sell.dart';
+import 'viewschedule.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Ensure bindings are initialized
-  await Firebase.initializeApp(); // Initialize Firebase
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -24,6 +27,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'NunitoSans',
       ),
+      routes: {
+        '/buy': (context) => BuyPage(),
+        '/sell': (context) => SellPage(),
+      },
       home: const MyHomePage(title: 'Tender Square 🌴'),
     );
   }
@@ -158,15 +165,29 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               const SizedBox(height: 20.0),
+              // Correct usage with onPressed
               _buildContainer(
                 child: Column(
                   children: [
-                    _buildGradientButton('Buy 🤝', textColor: Colors.white),
+                    _buildGradientButton(
+                      'Buy 🤝',
+                      textColor: Colors.white,
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/buy');
+                      },
+                    ),
                     const SizedBox(height: 20.0),
-                    _buildGradientButton('Sell 💰', textColor: Colors.white),
+                    _buildGradientButton(
+                      'Sell 💰',
+                      textColor: Colors.white,
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/sell');
+                      },
+                    ),
                   ],
                 ),
               ),
+
               const SizedBox(height: 15.0),
               _buildContainer(
                 child: Stack(
@@ -418,11 +439,13 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildGradientButton(String text, {Color textColor = Colors.white}) {
+  // Updated _buildGradientButton to accept onPressed
+  Widget _buildGradientButton(String text,
+      {required VoidCallback onPressed, Color textColor = Colors.white}) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed, // Use the onPressed parameter
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 14.0),
           backgroundColor: Colors.green,
@@ -1148,7 +1171,11 @@ class SchedulePage extends StatelessWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          // Add your button action here
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ViewSchedulePage()),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,

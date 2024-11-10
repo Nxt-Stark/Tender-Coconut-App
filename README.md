@@ -32,4 +32,4 @@ Follow these steps to set up and run the app locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/tender-coconut-export-app.git
+   git clone https://github.com/Nxt-Stark/Tender-Coconut-App.git
